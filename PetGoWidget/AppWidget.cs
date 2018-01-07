@@ -137,6 +137,9 @@ namespace PetGo {
 					if (pet.Happyness < 50) {
 						result = Resource.Drawable.idle_unhappy;
 					}
+					if (pet.Sickness<20) {
+						result = Resource.Drawable.sick;
+					}
 					break;
 				case PetAction.Sleep:
 					result = Resource.Drawable.sleep;
