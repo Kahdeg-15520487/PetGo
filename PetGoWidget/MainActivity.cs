@@ -39,21 +39,19 @@ namespace PetGo {
 			var dbpath = Path.Combine(documentspath, "pet.db");
 			Constant.dbpath = dbpath;
 			using (var db = new LiteDatabase(dbpath)) {
-				db.DropCollection("customers");
+				db.DropCollection("pet");
 				var data = db.GetCollection<Pet>("pet");
-				if (data.Count() == 0) {
-					var pet = new Pet() {
-						Name = "lala",
-						Status = (int)PetAction.Idle,
-						Hunger = 100,
-						Thirst = 100,
-						Happyness = 100,
-						Sickness = 100,
-						Sleepyness = 100,
-						Filthyness = 100
-					};
-					data.Insert(pet);
-				}
+				var pet = new Pet() {
+					Name = "lala",
+					Status = (int)PetAction.Idle,
+					Hunger = 100,
+					Thirst = 100,
+					Happyness = 100,
+					Sickness = 100,
+					Sleepyness = 100,
+					Filthyness = 100
+				};
+				data.Insert(pet);
 			}
 			Finish();
 		}
