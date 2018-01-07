@@ -113,23 +113,17 @@ namespace PetGo {
 
 		private int PetLogic(PetAction action, Context context) {
 			int result = -1;
-
+            //get pet status
 			PetAction status = GetPetStatus();
+            //pet action which will be scheduled
 			PetAction pendingAction = PetAction.Idle;
+            //second till pendingAction
 			int pendingActionSchedule = 0;
+            //get pet info
 			Pet pet = GetPetInfo();
+            
 			Log.Debug("petaction", action.ToString());
 			Log.Debug("petstatus", status.ToString());
-
-			/* pet action
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 */
 
 			switch (action) {
 				case PetAction.Idle:
@@ -218,17 +212,21 @@ namespace PetGo {
 					break;
 			}
 
+            //set pet status in database
 			SetPetStatus(action);
 
+            //schedule update status
 			if (!isUpdateStatusSetUp) {
 				SchedulePetAction(10, PetAction.UpdateStatus, context);
 				isUpdateStatusSetUp = true;
 			}
 
+            //schedule pendingAction
 			if (pendingActionSchedule !=0) {
 				SchedulePetAction(pendingActionSchedule, pendingAction, context);
 			}
 
+            //set pet info in database
 			SetPetInfo(pet);
 
 			return result;
