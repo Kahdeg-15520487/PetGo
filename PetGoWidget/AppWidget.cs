@@ -205,7 +205,7 @@ namespace PetGo {
 					pet.Happyness -= 10;
 					pet.Sleepyness -= 10;
 					pet.Filthyness -= 10;
-					pet.Sickness -= 50;
+					pet.Sickness -= 5;
 					isUpdateStatusSetUp = false;
 					break;
 				default:
