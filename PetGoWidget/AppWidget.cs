@@ -132,7 +132,7 @@ namespace PetGo {
 					if (pet.Happyness < 60 or pet.Hunger < 60 or pet.Thirst < 60 or pet. Sleepyness < 40) {
 						result = Resource.Drawable.idle_unhappy;
 					}
-					if (pet.Sickness < 20) {
+					if (pet.Sickness < 30) {
 						result = Resource.Drawable.sick;
 					}
 					break;
