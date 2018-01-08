@@ -16,6 +16,7 @@ namespace PetGo {
 		public int Sickness { get; set; }
 		public int Sleepyness { get; set; }
 		public int Filthyness { get; set; }
+		public int Aging { get; set; }
 	}
 
 	public class Constant {
@@ -49,7 +50,8 @@ namespace PetGo {
 					Happyness = 100,
 					Sickness = 100,
 					Sleepyness = 100,
-					Filthyness = 100
+					Filthyness = 100,
+					Aging = 100,
 				};
 				data.Insert(pet);
 			}
