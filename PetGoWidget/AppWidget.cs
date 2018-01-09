@@ -144,7 +144,7 @@ namespace PetGo {
 					pendingActionSchedule = 100;
 					break;
 				case PetAction.Bath:
-					if (pet.Filthyness < 80) {
+					if (pet.Filthyness < 70) {
 						result = Resource.Drawable.bath_happy;
 						pendingActionSchedule = 3;
 						pet.Filthyness = 100;
@@ -168,7 +168,7 @@ namespace PetGo {
 					}
 					break;
 				case PetAction.Feed:
-					if (pet.Hunger < 90 && pet.Sickness > 80) {
+					if (pet.Hunger < 90 && pet.Sickness > 70) {
 						result = Resource.Drawable.eat_happy;
 						pendingActionSchedule = 4;
 						pet.Hunger = 100;
@@ -181,7 +181,7 @@ namespace PetGo {
 					}
 					break;
 				case PetAction.Drink:
-					if (pet.Thirst < 90 && pet.Sickness > 80) {
+					if (pet.Thirst < 90 && pet.Sickness > 70) {
 						result = Resource.Drawable.drink_happy;
 						pendingActionSchedule = 3;
 						pet.Thirst = 100;
