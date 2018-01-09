@@ -70,7 +70,7 @@ namespace PetGo {
 			widgetView.SetOnClickPendingIntent(Resource.Id.buttonFeed, GetPendingSelfIntent(context, PetAction.Feed));
 			widgetView.SetOnClickPendingIntent(Resource.Id.buttonDrink, GetPendingSelfIntent(context, PetAction.Drink));
 			widgetView.SetOnClickPendingIntent(Resource.Id.buttonMed, GetPendingSelfIntent(context, PetAction.Med));
-			
+
 			Log.Debug("pet", "registerclick");
 		}
 
@@ -114,22 +114,22 @@ namespace PetGo {
 
 		private int PetLogic(PetAction action, Context context) {
 			int result = -1;
-            //get pet status
+			//get pet status
 			PetAction status = GetPetStatus();
-            //pet action which will be scheduled
+			//pet action which will be scheduled
 			PetAction pendingAction = PetAction.Idle;
-            //second till pendingAction
+			//second till pendingAction
 			int pendingActionSchedule = 0;
-            //get pet info
+			//get pet info
 			Pet pet = GetPetInfo();
-            
+
 			Log.Debug("petaction", action.ToString());
 			Log.Debug("petstatus", status.ToString());
 
 			switch (action) {
 				case PetAction.Idle:
 					result = Resource.Drawable.idle_happy;
-					if (pet.Happyness < 60 or pet.Hunger < 60 or pet.Thirst < 60 or pet. Sleepyness < 40) {
+					if (pet.Happyness < 60 || pet.Hunger < 60 || pet.Thirst < 60 || pet.Sleepyness < 40) {
 						result = Resource.Drawable.idle_unhappy;
 					}
 					if (pet.Sickness < 30) {
@@ -139,36 +139,36 @@ namespace PetGo {
 				case PetAction.Sleep:
 					result = Resource.Drawable.sleep;
 					pet.Sleepyness = 100;
-					if (pet.sickness <50)
-					pet.sickness +=10;
+					if (pet.Sickness < 50)
+						pet.Sickness += 10;
 					pendingActionSchedule = 100;
 					break;
 				case PetAction.Bath:
-					if (pet.Filthyness<80) {
+					if (pet.Filthyness < 80) {
 						result = Resource.Drawable.bath_happy;
 						pendingActionSchedule = 3;
 						pet.Filthyness = 100;
 					}
 					else {
 						result = Resource.Drawable.bath_unhappy;
-						pet.Happyness -=10;
+						pet.Happyness -= 10;
 						pendingActionSchedule = 3;
 					}
 					break;
 				case PetAction.GoOut:
-					if (pet.Happyness<90 and pet.sickness>70) {
+					if (pet.Happyness < 90 && pet.Sickness > 70) {
 						result = Resource.Drawable.park_happy;
 						pendingActionSchedule = 10;
 						pet.Happyness = 100;
 					}
 					else {
 						result = Resource.Drawable.park_unhappy;
-						pet.Filthyness -=20;
+						pet.Filthyness -= 20;
 						pendingActionSchedule = 3;
 					}
 					break;
 				case PetAction.Feed:
-					if (pet.Hunger<90 and pet.sickness>80) {
+					if (pet.Hunger < 90 && pet.Sickness > 80) {
 						result = Resource.Drawable.eat_happy;
 						pendingActionSchedule = 4;
 						pet.Hunger = 100;
@@ -176,31 +176,31 @@ namespace PetGo {
 					}
 					else {
 						result = Resource.Drawable.eat_unhappy;
-						pet.Happyness -=10;
+						pet.Happyness -= 10;
 						pendingActionSchedule = 2;
 					}
 					break;
 				case PetAction.Drink:
-					if (pet.Thirst<90 and pet.Sickness>80) {
+					if (pet.Thirst < 90 && pet.Sickness > 80) {
 						result = Resource.Drawable.drink_happy;
 						pendingActionSchedule = 3;
 						pet.Thirst = 100;
 					}
 					else {
 						result = Resource.Drawable.drink_unhappy;
-						pet.Happyness -=10;
+						pet.Happyness -= 10;
 						pendingActionSchedule = 2;
 					}
 					break;
 				case PetAction.Med:
-					if (pet.Sickness<70) {
+					if (pet.Sickness < 70) {
 						result = Resource.Drawable.med_happy;
 						pendingActionSchedule = 5;
 						pet.Sickness = 100;
 					}
 					else {
 						result = Resource.Drawable.med_unhappy;
-						pet.Happyness -=10;
+						pet.Happyness -= 10;
 						pendingActionSchedule = 2;
 					}
 					break;
@@ -208,43 +208,43 @@ namespace PetGo {
 					result = Resource.Drawable.sick;
 					break;
 				case PetAction.UpdateStatus:
-				if(pet.Aging==0)
-					result = Resource.Drawable.Pass_on;
-				else if (pet.Sickness==0)
-					result = Resource.Drawable.Die;
-					else
-					{
-					result = -1;
-					pendingActionSchedule = 10;
-					pet.Hunger -= 10;
-					pet.Thirst -= 10;
-					pet.Happyness -= 5;
-					pet.Sleepyness -= 10;
-					pet.Filthyness -= 5;
-					if (pet.Happyness < 60 or pet.Sleepyness < 60 or pet.Filthyness < 60)
-						pet.Sickness -= 10;
-					isUpdateStatusSetUp = false;
+					if (pet.Aging == 0)
+						result = Resource.Drawable.sick;
+					else if (pet.Sickness == 0)
+						result = Resource.Drawable.sick;
+					else {
+						result = -1;
+						pendingActionSchedule = 10;
+						pet.Hunger -= 10;
+						pet.Thirst -= 10;
+						pet.Happyness -= 5;
+						pet.Sleepyness -= 10;
+						pet.Filthyness -= 5;
+						if (pet.Happyness < 60 || pet.Sleepyness < 60 || pet.Filthyness < 60)
+							pet.Sickness -= 10;
+						isUpdateStatusSetUp = false;
+						Log.Debug("petstatus", pet.ToString());
 					}
 					break;
 				default:
 					break;
 			}
 
-            //set pet status in database
+			//set pet status in database
 			SetPetStatus(action);
 
-            //schedule update status
+			//schedule update status
 			if (!isUpdateStatusSetUp) {
 				SchedulePetAction(10, PetAction.UpdateStatus, context);
 				isUpdateStatusSetUp = true;
 			}
 
-            //schedule pendingAction
-			if (pendingActionSchedule !=0) {
+			//schedule pendingAction
+			if (pendingActionSchedule != 0) {
 				SchedulePetAction(pendingActionSchedule, pendingAction, context);
 			}
 
-            //set pet info in database
+			//set pet info in database
 			SetPetInfo(pet);
 
 			return result;

@@ -4,6 +4,7 @@ using Android.OS;
 using LiteDB;
 using System.IO;
 using Android.Content;
+using System.Text;
 
 namespace PetGo {
 	public class Pet {
@@ -16,6 +17,20 @@ namespace PetGo {
 		public int Sickness { get; set; }
 		public int Sleepyness { get; set; }
 		public int Filthyness { get; set; }
+		public int Aging { get; set; }
+		public override string ToString() {
+			StringBuilder result = new StringBuilder();
+
+			result.AppendLine("status : " +Status);
+			result.AppendLine("hunger : " + Hunger);
+			result.AppendLine("thirst : " + Thirst);
+			result.AppendLine("happy : " + Happyness);
+			result.AppendLine("sick : " + Sickness);
+			result.AppendLine("filthy : " + Filthyness);
+			result.AppendLine("age : " + Aging);
+
+			return result.ToString();
+		}
 	}
 
 	public class Constant {
@@ -49,7 +64,8 @@ namespace PetGo {
 					Happyness = 100,
 					Sickness = 100,
 					Sleepyness = 100,
-					Filthyness = 100
+					Filthyness = 100,
+					Aging = 100
 				};
 				data.Insert(pet);
 			}
