@@ -151,17 +151,19 @@ namespace PetGo {
 					}
 					else {
 						result = Resource.Drawable.bath_unhappy;
+						pet.Happyness -=10;
 						pendingActionSchedule = 3;
 					}
 					break;
 				case PetAction.GoOut:
-					if (pet.Happyness<100 and pet.sickness>80) {
+					if (pet.Happyness<100 and pet.sickness>70) {
 						result = Resource.Drawable.park_happy;
 						pendingActionSchedule = 10;
 						pet.Happyness = 100;
 					}
 					else {
 						result = Resource.Drawable.park_unhappy;
+						pet.Filthyness -=20;
 						pendingActionSchedule = 3;
 					}
 					break;
@@ -174,6 +176,7 @@ namespace PetGo {
 					}
 					else {
 						result = Resource.Drawable.eat_unhappy;
+						pet.Happyness -=10;
 						pendingActionSchedule = 2;
 					}
 					break;
@@ -185,6 +188,7 @@ namespace PetGo {
 					}
 					else {
 						result = Resource.Drawable.drink_unhappy;
+						pet.Happyness -=10;
 						pendingActionSchedule = 2;
 					}
 					break;
@@ -196,6 +200,7 @@ namespace PetGo {
 					}
 					else {
 						result = Resource.Drawable.med_unhappy;
+						pet.Happyness -=10;
 						pendingActionSchedule = 2;
 					}
 					break;
@@ -217,7 +222,7 @@ namespace PetGo {
 					pet.Sleepyness -= 10;
 					pet.Filthyness -= 10;
 					if (pet.Happyness < 60 or pet.Sleepyness < 60 or pet.Filthyness < 60)
-						pet.Sickness -= 5;
+						pet.Sickness -= 10;
 					isUpdateStatusSetUp = false;
 					}
 					break;
