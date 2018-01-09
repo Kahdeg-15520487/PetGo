@@ -21,7 +21,7 @@ namespace PetGo {
 		public override string ToString() {
 			StringBuilder result = new StringBuilder();
 
-			result.AppendLine("status : " +Status);
+			result.AppendLine("status : " + ((PetAction)Status));
 			result.AppendLine("hunger : " + Hunger);
 			result.AppendLine("thirst : " + Thirst);
 			result.AppendLine("happy : " + Happyness);
