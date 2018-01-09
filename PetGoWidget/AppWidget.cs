@@ -209,9 +209,10 @@ namespace PetGo {
 					break;
 				case PetAction.UpdateStatus:
 					if (pet.Aging == 0)
-						result = Resource.Drawable.sick;
+						result = Resource.Drawable.Pass_on;
+						//need to add star
 					else if (pet.Sickness == 0)
-						result = Resource.Drawable.sick;
+						result = Resource.Drawable.Die;
 					else {
 						result = -1;
 						pendingActionSchedule = 10;
